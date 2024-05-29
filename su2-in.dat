@@ -1,0 +1,11 @@
+20 20            ! lattice size space time
+2.5              ! beta
+10 100       ! number of monte carlo sweeps number of thermalization sweeps
+1 1              ! maximum size of the wilson loops we want
+2            ! if 1 we print the configurations on the file suN-lattice
+200             ! number of discarted configurations
+1e-2               ! gauge fix tolerance
+2          ! init flag 1-> cold init, 2-> hot init
+b          ! function a ->  termilize the lattice and find the correlation time
+                                ! b -> termilize the lattice and generate uncorrelated configurations
+                                ! c -> read the configurations and make measures
