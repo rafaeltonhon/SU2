@@ -40,11 +40,11 @@ module su2thermalize
         real(kind=r8) ::  sums(4), a, beta
         integer(kind=i4) :: e1, e2, e3, e4, mi, i
         !$OMP PARALLEL DO PRIVATE(e1,e2,e3,e4,mi,a,sums) SHARED(u)
-        do mi=1,4
-            do e1=1,nr
-            do e2=1,nr
-            do e3=1,nr
-            do e4=1,nt
+        do e1=1,nr
+        do e2=1,nr
+        do e3=1,nr
+        do e4=1,nt
+            do mi=1,4
                 sums=sumstamples(u,e1,e2,e3,e4,mi)
                 a=dsqrt(detlink(sums))
                 if(a.gt.5e-3)then   ! det sum_stamples > 0
@@ -56,9 +56,9 @@ module su2thermalize
                 endif
                 u(e1,e2,e3,e4,mi,:)=u(e1,e2,e3,e4,mi,:)/dsqrt(detlink(u(e1,e2,e3,e4,mi,:)))
             enddo
-            enddo
-            enddo
-            enddo
+        enddo
+        enddo
+        enddo
         enddo
         !$END OMP PARALLEL DO
     endsubroutine hbstep
