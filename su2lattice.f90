@@ -8,18 +8,33 @@ module su2lattice
     ! define the parameters
     real(kind=r8), parameter :: pi=acos(-1.0_r8)
     real(kind=r8), dimension(4), parameter :: sigma3=(/0.0_r8,0.0_r8,1.0_r8,0.0_r8/)
-    !integer(kind=i4), parameter :: nr=10 ! number of sites in space
-    !integer(kind=i4), parameter :: nt=10 !  number of sites in time
+    integer(kind=i4), parameter :: nr=20 ! number of sites in space
+    integer(kind=i4), parameter :: nt=20 !  number of sites in time
+    integer(kind=i4), parameter :: a=10 ! maximum size of the wilson loops we want
+    integer(kind=i4), parameter :: b=10 ! maximum size of the wilson loops we want
+    real(kind=r8), parameter :: beta=2.30_r8              ! beta
+    integer(kind=i4), parameter :: nmc=1000  ! number of monte carlo sweeps number 
+    integer(kind=i4), parameter :: nterm=1000        ! number of thermalization sweeps
+    integer(kind=i4), parameter :: iprint=2            ! if 1 we print the configurations on the file suN-lattice
+    integer(kind=i4), parameter :: ncorr=200             ! number of discarted configurations
+    real(kind=r8), parameter :: tol=2e-5               ! gauge fix tolerance
+    integer(kind=i4), parameter :: initflag=2          ! init flag 1-> cold init, 2-> hot init
+    character(len=1), parameter :: function='b'          ! function a ->  termilize the lattice and find the correlation time
+                                ! b -> termilize the lattice and generate uncorrelated configurations
+                                ! c -> read the configurations and make measures
 
     ! define the matrices
-    real(kind=r8), allocatable, dimension(:,:,:,:,:,:) :: u, ug, r, z
-    real(kind=r8), allocatable, dimension(:,:) :: w, wr, wv, we, wo
+    !real(kind=r8), allocatable, dimension(:,:,:,:,:,:) :: u, ug, r, z
+    !real(kind=r8), allocatable, dimension(:,:) :: w, wr, wv, we, wo
+    real(kind=r8), dimension(nr,nr,nr,nr,4,4) :: u, ug, r, z
+    real(kind=r8), dimension(a,b) :: w, wr, wv, we, wo
 
     ! defining our variables
-    real(kind=r8) :: beta, tol
-    integer(kind=i4) :: nr, nt, initflag, rate, itimes1, itimes2
-    integer(kind=i4) :: i, j, nmc, nterm, ncorr, iprint, a, b
-    character(len=1) :: function
+    !real(kind=r8) :: beta, nr, nt, a, b, initflag, tol
+    integer(kind=i4) :: rate, itimes1, itimes2
+    integer(kind=i4) :: i, j
+    ! nmc, nterm, ncorr, iprint
+    !character(len=1) :: function
     !integer(kind=i4) :: a, b
     contains
     function ident()
